@@ -9,6 +9,21 @@ namespace Maydear.Infrastructure
     /// </summary>
     public interface IBlobFileInfrastructure
     {
+        /// <summary>
+        /// 设置容器为容器级公开访问
+        /// </summary>
+        /// <param name="containerName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> SetPublicContainerAsync(string containerName, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// 设置容器为Blob级公开访问
+        /// </summary>
+        /// <param name="containerName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> SetPublicBlobAsync(string containerName, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// 通过流下载Blob文件

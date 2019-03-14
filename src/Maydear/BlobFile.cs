@@ -25,6 +25,11 @@ namespace Maydear
         public string FileName { get; set; }
 
         /// <summary>
+        /// 获取或设置原文件名
+        /// </summary>
+        public string SourceFileName { get; set; }
+
+        /// <summary>
         /// 获取或设置存储的文件扩展名
         /// </summary>
         public string ExtensionName { get; set; }
@@ -72,6 +77,6 @@ namespace Maydear
         /// <summary>
         /// 缓存目录
         /// </summary>
-        public string CacheDirectory => $"{CreateDate.ToString("/yyyy/MM/")}";
+        public string CacheDirectory => $"{CreateDate.ToString("yyyy/MM")}";
     }
 }
