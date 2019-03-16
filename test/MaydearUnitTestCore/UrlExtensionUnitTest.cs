@@ -4,10 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MaydearUnitTest
 {
     [TestClass]
-    public class PageUnitTest
+    public class UrlExtensionUnitTest
     {
+        /// <summary>
+        /// ÕýÀý
+        /// </summary>
         [TestMethod]
-        public void OffsetTestMethod()
+        public void ExtractHostCorrectTestMethod()
         {
             var page = new Page()
             {
@@ -19,7 +22,7 @@ namespace MaydearUnitTest
         }
 
         [TestMethod]
-        public void StartOffsetTestMethod()
+        public void ExtractHostFailingTestMethod()
         {
             var page = new Page()
             {

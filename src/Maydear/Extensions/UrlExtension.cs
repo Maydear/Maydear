@@ -14,10 +14,10 @@
 * limitations under the License.
 *****************************************************************************************/
 using System;
-using System.Text.RegularExpressions;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 /*****************************************************************************************
  * FileName:UrlExtension.cs
  * Author:Kelvin
@@ -120,15 +120,17 @@ namespace Maydear.Extensions
         /// <returns></returns>
         public static IDictionary<string, string> ParseQueryString(this string query)
         {
-            // [DC]: This method does not URL decode, and cannot handle decoded input
-            if (query.StartsWith("?")) query = query.Substring(1);
+            if (query.StartsWith("?"))
+            {
+                query = query.Substring(1);
+            }
 
             if (string.IsNullOrEmpty(query))
             {
                 return new Dictionary<string, string>();
             }
 
-            var parts = query.Split(new[] { '&' });
+            string[] parts = query.Split(new[] { '&' });
 
             return parts.Select(
                 part => part.Split(new[] { '=' })).ToDictionary(

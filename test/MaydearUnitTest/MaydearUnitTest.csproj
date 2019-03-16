@@ -52,6 +52,9 @@
     <Compile Include="..\MaydearUnitTestCore\PageUnitTest.cs">
       <Link>PageUnitTest.cs</Link>
     </Compile>
+    <Compile Include="..\MaydearUnitTestCore\UrlExtensionUnitTest.cs">
+      <Link>UrlExtensionUnitTest.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -72,7 +72,7 @@ namespace Maydear
         /// <summary>
         /// 缓存路径
         /// </summary>
-        public string CacheFilePath => $"{CacheDirectory}/{BlobFileUid.ToString("N")}{ExtensionName}";
+        public string CacheFilePath => System.IO.Path.Combine(CacheDirectory, $"{BlobFileUid.ToString("N")}{ExtensionName}");
 
         /// <summary>
         /// 缓存目录

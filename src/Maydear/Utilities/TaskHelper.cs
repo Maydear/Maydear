@@ -18,7 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 /*****************************************************************************************
- * FileName:StringFilterExtension.cs
+ * FileName:TaskHelper.cs
  * Author:Kelvin
  * CreateDate:2014/09/22 15:02:45
  * Description:
