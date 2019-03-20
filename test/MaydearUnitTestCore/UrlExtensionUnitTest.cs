@@ -1,4 +1,5 @@
 using Maydear;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaydearUnitTest
@@ -7,7 +8,7 @@ namespace MaydearUnitTest
     public class UrlExtensionUnitTest
     {
         /// <summary>
-        /// ÕýÀý
+        /// æ­£ä¾‹
         /// </summary>
         [TestMethod]
         public void ExtractHostCorrectTestMethod()
@@ -29,6 +30,8 @@ namespace MaydearUnitTest
                 PageIndex = 1,
                 PageSize = 100
             };
+
+            string s = "ssss";
 
             Assert.AreEqual(page.Offset, 0);
         }

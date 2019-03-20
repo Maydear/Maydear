@@ -1,4 +1,4 @@
-﻿/*****************************************************************************************
+/*****************************************************************************************
 * Copyright 2014-2017 The Maydear Authors
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,7 @@ using System.Linq;
  *        1		    |	Kelvin		|2014-09-22 15:20:00	|	创建文件
  ****************************************************************************************/
 
-namespace Maydear.Extensions
+namespace System
 {
     /// <summary>
     /// 【枚举扩展】类
@@ -39,7 +39,7 @@ namespace Maydear.Extensions
         /// </summary>
         /// <param name="enumObject">枚举对象</param>
         /// <returns>返回描述(Description)</returns>
-        public static string Description(this System.Enum enumObject)
+        public static string GetDescription(this System.Enum enumObject)
         {
             var type = enumObject.GetType();
 
@@ -60,7 +60,7 @@ namespace Maydear.Extensions
         /// </summary>
         /// <param name="enumObject">枚举对象</param>
         /// <returns>返回整形值</returns>
-        public static int Value(this System.Enum enumObject)
+        public static int GetValue(this System.Enum enumObject)
         {
             return (int)System.Enum.Parse(enumObject.GetType(), enumObject.ToString(), true);
         }

@@ -1,4 +1,4 @@
-﻿/*****************************************************************************************
+/*****************************************************************************************
 * Copyright 2014-2017 The Maydear Authors
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,25 @@ namespace Maydear.Extensions
             try
             {
                 Uri uri = new Uri(url);
-                return uri.Host;
+                return $"{uri.Host}:{uri.Port}";
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// 提取host信息
+        /// </summary>
+        /// <param name="url">http|https的url地址</param>
+        /// <returns></returns>
+        public static string ExtractHostName(this string url)
+        {
+            try
+            {
+                Uri uri = new Uri(url);
+                return $"{uri.Host}";
             }
             catch
             {
