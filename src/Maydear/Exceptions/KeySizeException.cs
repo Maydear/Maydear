@@ -39,6 +39,13 @@ namespace Maydear.Exceptions
             : base(message) { }
 
         /// <summary>
+        /// 加密的密钥长度不足时引发异常。
+        /// </summary>
+        /// <param name="message"></param>
+        public KeySizeException(int keySize)
+            : base($"密钥长度不足，请使用{keySize}位的密钥。") { }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="innerException"></param>

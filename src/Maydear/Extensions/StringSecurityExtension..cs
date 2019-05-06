@@ -35,6 +35,25 @@ namespace System.Security.Cryptography
     public static class StringSecurityExtension
     {
         #region HmacMD5
+
+        /// <summary>
+        /// 独有干扰MD5加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACMD5加密后的二进制数组</returns>
+        public static byte[] HMACMD5(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            HMACMD5 md5Provider = new HMACMD5(key);
+
+            return md5Provider.ComputeHash(data.ToBytes());
+        }
+
         /// <summary>
         /// 独有干扰MD5加密
         /// </summary>
@@ -43,15 +62,11 @@ namespace System.Security.Cryptography
         /// <returns>返回HMACMD5加密后的十六进制编码字符串</returns>
         public static string HMACMD5ToHex(this string data, string key)
         {
-            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            byte[] hashBuff = data.HMACMD5(key.ToBytes());
+            if (hashBuff == null)
             {
                 return data;
             }
-
-            HMACMD5 md5Provider = new HMACMD5(key.ToBytes());
-
-            byte[] hashBuff = md5Provider.ComputeHash(data.ToUpper().ToBytes());
-
             return hashBuff.ToHexString();
         }
 
@@ -63,15 +78,11 @@ namespace System.Security.Cryptography
         /// <returns>返回HMACMD5加密后的十六进制编码字符串</returns>
         public static string HMACMD5ToHex(this string data, byte[] key)
         {
-            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            byte[] hashBuff = data.HMACMD5(key);
+            if (hashBuff == null)
             {
                 return data;
             }
-
-            System.Security.Cryptography.HMACMD5 md5Provider = new System.Security.Cryptography.HMACMD5(key);
-
-            byte[] hashBuff = md5Provider.ComputeHash(data.ToUpper().ToBytes());
-
             return hashBuff.ToHexString();
         }
 
@@ -83,15 +94,11 @@ namespace System.Security.Cryptography
         /// <returns>返回HMACMD5加密后的Base64编码字符串</returns>
         public static string HMACMD5ToBase64(this string data, string key)
         {
-            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            byte[] hashBuff = data.HMACMD5(key.ToBytes());
+            if (hashBuff == null)
             {
                 return data;
             }
-
-            HMACMD5 md5Provider = new HMACMD5(key.ToBytes());
-
-            byte[] hashBuff = md5Provider.ComputeHash(data.ToUpper().ToBytes());
-
             return hashBuff.ToBase64String();
         }
 
@@ -103,15 +110,11 @@ namespace System.Security.Cryptography
         /// <returns>返回HMACMD5加密后的Base64编码字符串</returns>
         public static string HMACMD5ToBase64(this string data, byte[] key)
         {
-            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            byte[] hashBuff = data.HMACMD5(key);
+            if (hashBuff == null)
             {
                 return data;
             }
-
-            System.Security.Cryptography.HMACMD5 md5Provider = new System.Security.Cryptography.HMACMD5(key);
-
-            byte[] hashBuff = md5Provider.ComputeHash(data.ToUpper().ToBytes());
-
             return hashBuff.ToBase64String();
         }
 
@@ -123,16 +126,31 @@ namespace System.Security.Cryptography
         /// MD5加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
-        /// <returns>返回MD5加密后的十六进制编码字符串</returns>
-        public static string MD5ToHex(this string data)
+        /// <returns>返回MD5加密后二进制数组</returns>
+        public static byte[] MD5(this string data)
         {
             if (string.IsNullOrEmpty(data))
             {
-                return string.Empty;
+                return null;
             }
 
             MD5 md5Provider = new MD5CryptoServiceProvider();
-            byte[] buff = md5Provider.ComputeHash(UnicodeEncoding.UTF8.GetBytes(data));
+            return md5Provider.ComputeHash(UnicodeEncoding.UTF8.GetBytes(data));
+        }
+
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回MD5加密后的十六进制编码字符串</returns>
+        public static string MD5ToHex(this string data)
+        {
+            byte[] buff = data.MD5();
+            if (buff == null)
+            {
+                return data;
+            }
+
             return buff.ToHexString();
         }
 
@@ -143,19 +161,37 @@ namespace System.Security.Cryptography
         /// <returns>返回MD5加密后的Base64编码字符串</returns>
         public static string MD5ToBase64(this string data)
         {
-            if (string.IsNullOrEmpty(data))
+            byte[] buff = data.MD5();
+            if (buff == null)
             {
-                return string.Empty;
+                return data;
             }
 
-            MD5 md5Provider = new MD5CryptoServiceProvider();
-            byte[] buff = md5Provider.ComputeHash(UnicodeEncoding.UTF8.GetBytes(data));
             return buff.ToBase64String();
         }
 
         #endregion
 
         #region HmacSha256
+
+        /// <summary>
+        /// 独有干扰HA256加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA256加密后的二进制数组</returns>
+        public static byte[] HMACSHA256(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key);
+
+            return sha256Provider.ComputeHash(data.ToBytes());
+        }
+
         /// <summary>
         /// 独有干扰HA256加密
         /// </summary>
@@ -169,9 +205,7 @@ namespace System.Security.Cryptography
                 return data;
             }
 
-            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key.ToUpper().ToBytes());
-
-            byte[] hashBuff = sha256Provider.ComputeHash(data.ToUpper().ToBytes());
+            byte[] hashBuff = data.HMACSHA256(key.ToBytes());
 
             return hashBuff.ToHexString();
         }
@@ -188,11 +222,7 @@ namespace System.Security.Cryptography
             {
                 return data;
             }
-
-            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key);
-
-            byte[] hashBuff = sha256Provider.ComputeHash(data.ToUpper().ToBytes());
-
+            byte[] hashBuff = data.HMACSHA256(key);
             return hashBuff.ToHexString();
         }
 
@@ -210,10 +240,7 @@ namespace System.Security.Cryptography
                 return data;
             }
 
-            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key.ToUpper().ToBytes());
-
-            byte[] hashBuff = sha256Provider.ComputeHash(data.ToUpper().ToBytes());
-
+            byte[] hashBuff = data.HMACSHA256(key.ToBytes());
             return hashBuff.ToBase64String();
         }
 
@@ -229,17 +256,32 @@ namespace System.Security.Cryptography
             {
                 return data;
             }
-
-            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key);
-
-            byte[] hashBuff = sha256Provider.ComputeHash(data.ToUpper().ToBytes());
-
+            byte[] hashBuff = data.HMACSHA256(key);
             return hashBuff.ToBase64String();
         }
 
         #endregion
 
         #region SHA256
+
+        /// <summary>
+        /// HA256加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回SHA256加密后的Base64编码密文</returns>
+        public static byte[] SHA256(this string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            SHA256Managed sHA256Managed = new SHA256Managed();
+            return sHA256Managed.ComputeHash(bytes);
+        }
+
+
         /// <summary>
         /// HA256加密
         /// </summary>
@@ -279,6 +321,24 @@ namespace System.Security.Cryptography
         #endregion
 
         #region SHA1
+
+        /// <summary>
+        /// SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回SHA1加密后的密文</returns>
+        public static byte[] SHA1(this string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            SHA1 sha1Provider = System.Security.Cryptography.SHA1.Create();
+            return sha1Provider.ComputeHash(bytes);
+        }
+
         /// <summary>
         /// SHA1加密
         /// </summary>
@@ -288,12 +348,9 @@ namespace System.Security.Cryptography
         {
             if (string.IsNullOrEmpty(data))
             {
-                return string.Empty;
+                return data;
             }
-
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SHA1 sha1Provider = System.Security.Cryptography.SHA1.Create();
-            byte[] inArray = sha1Provider.ComputeHash(bytes);
+            byte[] inArray = data.SHA1();
             return inArray.ToBase64String();
         }
 
@@ -306,12 +363,9 @@ namespace System.Security.Cryptography
         {
             if (string.IsNullOrEmpty(data))
             {
-                return string.Empty;
+                return data;
             }
-
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SHA1 sha1Provider = System.Security.Cryptography.SHA1.Create();
-            byte[] inArray = sha1Provider.ComputeHash(bytes);
+            byte[] inArray = data.SHA1();
             return inArray.ToHexString();
         }
 
@@ -328,7 +382,7 @@ namespace System.Security.Cryptography
         {
             return AesEncryptToBase64(data, password, CipherMode.ECB, PaddingMode.PKCS7);
         }
-        
+
         /// <summary>
         /// AES加密
         /// </summary>
@@ -365,7 +419,7 @@ namespace System.Security.Cryptography
         /// <param name="mode">加密模式</param>
         /// <param name="padding">填充模式</param>
         /// <returns>返回一个Base64编码的密文</returns>
-        public static string AesEncryptToBase64(this string data, byte[] password,CipherMode mode, PaddingMode padding)
+        public static string AesEncryptToBase64(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
@@ -374,10 +428,10 @@ namespace System.Security.Cryptography
 
             byte[] toEncryptArray = data.ToBytes();
             Aes aesProvider = Aes.Create();
-
-            if (password.Length < aesProvider.KeySize)
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
             {
-                throw new KeySizeException();
+                throw new KeySizeException(length);
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
@@ -386,7 +440,7 @@ namespace System.Security.Cryptography
             byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
             return resultArray.ToBase64String();
         }
-        
+
         /// <summary>
         /// AES加密
         /// </summary>
@@ -441,9 +495,10 @@ namespace System.Security.Cryptography
 
             byte[] toEncryptArray = Encoding.UTF8.GetBytes(data);
             Aes aesProvider = Aes.Create();
-            if (password.Length < aesProvider.KeySize)
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
             {
-                throw new KeySizeException();
+                throw new KeySizeException(length);
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
@@ -514,9 +569,10 @@ namespace System.Security.Cryptography
             byte[] toEncryptArray = Convert.FromBase64String(data);
             Aes aesProvider = Aes.Create();
 
-            if (password.Length < aesProvider.KeySize)
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
             {
-                throw new KeySizeException();
+                throw new KeySizeException(length);
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
@@ -589,9 +645,10 @@ namespace System.Security.Cryptography
 
             Aes aesProvider = Aes.Create();
 
-            if (password.Length < aesProvider.KeySize)
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
             {
-                throw new KeySizeException();
+                throw new KeySizeException(length);
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
