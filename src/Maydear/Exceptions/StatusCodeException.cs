@@ -12,7 +12,7 @@ namespace Maydear.Exceptions
         /// <summary>
         /// 错误状态码
         /// </summary>
-        public int StutasCode { get; set; }
+        public int StatusCode { get; set; }
 
         /// <summary>
         /// 初始化<see cref="StatusCodeException"/>类的新实例。
@@ -25,7 +25,7 @@ namespace Maydear.Exceptions
         public StatusCodeException(int statusCode, string message)
             : base(message)
         {
-            StutasCode = statusCode;
+            StatusCode = statusCode;
         }
 
 
@@ -56,7 +56,7 @@ namespace Maydear.Exceptions
         public StatusCodeException(int statusCode, string message, Exception innerException)
             : base(message, innerException)
         {
-            StutasCode = statusCode;
+            StatusCode = statusCode;
         }
     }
 }
