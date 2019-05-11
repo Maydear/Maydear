@@ -13,8 +13,16 @@ namespace MaydearUnitTestCore
         public void AesEncryptToBase64()
         {
             var data = "1111";
-            var key = "123aaa";
+            var key = "wx95d844a16d466d37";
             data.AesEncryptToBase64(key.MD5ToHex());
+        }
+
+        [TestMethod]
+        public void AesEncryptToHex()
+        {
+            var data = "1111";
+            var key = "wx95d844a16d466d37";
+            data.AesEncryptToHex(key.MD5ToHex());
         }
     }
 }

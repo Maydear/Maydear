@@ -15,7 +15,7 @@
 *****************************************************************************************/
 using System.Collections.Generic;
 
-namespace Maydear.Extensions
+namespace System
 {
     /// <summary>
     /// 

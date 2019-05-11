@@ -135,7 +135,7 @@ namespace System.Security.Cryptography
             }
 
             MD5 md5Provider = new MD5CryptoServiceProvider();
-            return md5Provider.ComputeHash(UnicodeEncoding.UTF8.GetBytes(data));
+            return md5Provider.ComputeHash(data.ToBytes());
         }
 
         /// <summary>
@@ -275,10 +275,8 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
             SHA256Managed sHA256Managed = new SHA256Managed();
-            return sHA256Managed.ComputeHash(bytes);
+            return sHA256Managed.ComputeHash(data.ToBytes());
         }
 
 
@@ -293,10 +291,7 @@ namespace System.Security.Cryptography
             {
                 return string.Empty;
             }
-
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SHA256Managed sHA256Managed = new SHA256Managed();
-            byte[] inArray = sHA256Managed.ComputeHash(bytes);
+            byte[] inArray = data.SHA256();
             return inArray.ToBase64String();
         }
 
@@ -311,10 +306,7 @@ namespace System.Security.Cryptography
             {
                 return string.Empty;
             }
-
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SHA256Managed sHA256Managed = new SHA256Managed();
-            byte[] inArray = sHA256Managed.ComputeHash(bytes);
+            byte[] inArray = data.SHA256();
             return inArray.ToHexString();
         }
 

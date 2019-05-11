@@ -42,33 +42,13 @@ namespace System.Collections.Generic
         }
 
         /// <summary>
-        /// 是否不为null且是空集合
-        /// </summary>
-        /// <param name="collection">集合</param>
-        /// <returns></returns>
-        public static bool IsNotNullAndEmpty<T>(this IEnumerable<T> collection)
-        {
-            if (collection == null)
-            {
-                return false;
-            }
-
-            return !collection.Any();
-        }
-
-        /// <summary>
         /// 不为null
         /// </summary>
         /// <param name="collection">集合</param>
         /// <returns>如果不是null对象或不是空集合则返回true，反之则为false</returns>
         public static bool IsNotNull<T>(this IEnumerable<T> collection)
         {
-            if (collection != null)
-            {
-                return true;
-            }
-
-            return false;
+            return collection != null;
         }
 
         /// <summary>
