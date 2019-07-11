@@ -42,7 +42,7 @@ namespace Maydear.Exceptions
         /// 本构造函数使用框架预设<para>错误</para>信息.
         /// </remarks>
         public MaydearException()
-            : base("Maydear.Common引发异常。") { }
+            : base("Maydear自定义异常。") { }
 
         /// <summary>
         /// 使用指定<see cref="System.Exception"/>的异常对象初始化<see cref="MaydearException"/>类的新实例。
@@ -54,7 +54,7 @@ namespace Maydear.Exceptions
         /// 导致当前异常的异常，如果<see cref="System.Exception"/> 参数不为空引用，则在处理内部异常的 catch 块中引发当前异常。
         /// </param>
         public MaydearException(Exception innerException)
-            : this("Maydear.Common引发异常。", innerException) { }
+            : this("Maydear自定义异常。", innerException) { }
 
         /// <summary>
         /// 使用指定错误消息初始化<see cref="MaydearException"/>类的新实例。

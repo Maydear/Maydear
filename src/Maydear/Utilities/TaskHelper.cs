@@ -57,6 +57,29 @@ namespace Maydear.Utilities
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task"></param>
+        /// <param name="tcs"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static bool HandleFaultsAndCancelation<T>(Task task, TaskCompletionSource<T> tcs, CancellationToken cancellationToken)
+        {
+            if (task.IsFaulted)
+            {
+                tcs.TrySetException(task.Exception.GetBaseException());
+                return true;
+            }
+            if (task.IsCanceled)
+            {
+                tcs.TrySetCanceled(cancellationToken);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 主要对Task的ContinueWith方法抽象出一个标准的通用调用。
         /// </summary>
         /// <param name="task">任务</param>
@@ -65,6 +88,17 @@ namespace Maydear.Utilities
         public static Task ContinueWithStandard(this Task task, Action<Task> continuation)
         {
             return task.ContinueWith(continuation, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        }
+        /// <summary>
+        /// 主要对Task的ContinueWith方法抽象出一个标准的通用调用。
+        /// </summary>
+        /// <param name="task">任务</param>
+        /// <param name="continuation">Continuation委托</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static Task ContinueWithStandard(this Task task, Action<Task> continuation, CancellationToken cancellationToken)
+        {
+            return task.ContinueWith(continuation, cancellationToken, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
 
         /// <summary>
@@ -75,6 +109,19 @@ namespace Maydear.Utilities
         /// <param name="continuation">Continuation委托</param>
         /// <returns></returns>
         public static Task ContinueWithStandard<T>(this Task<T> task, Action<Task<T>> continuation)
+        {
+            return task.ContinueWith(continuation, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        }
+
+        /// <summary>
+        /// 主要对Task的ContinueWith方法抽象出一个标准的通用调用。
+        /// </summary>
+        /// <typeparam name="T">泛型任务</typeparam>
+        /// <param name="task">任务</param>
+        /// <param name="continuation">Continuation委托</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static Task ContinueWithStandard<T>(this Task<T> task, Action<Task<T>> continuation, CancellationToken cancellationToken)
         {
             return task.ContinueWith(continuation, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
