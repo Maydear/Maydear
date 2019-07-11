@@ -16,23 +16,42 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Maydear.Infrastructure
 {
     /// <summary>
     /// 短信内容
     /// </summary>
-    public class Sms {
+    public class Sms
+    {
 
         /// <summary>
-        /// 发送手机号码，多个手机号码","分割
+        /// 电话
         /// </summary>
-        public string Mobiles { get; set; }
+        public IEnumerable<Telephone> Telephones { get; set; }
 
         /// <summary>
-        /// 邮件正文
+        /// 短信正文
         /// </summary>
         public string Content { get; set; }
+    }
+
+    /// <summary>
+    /// 电话
+    /// </summary>
+    public class Telephone
+    {
+        /// <summary>
+        /// 国家代码
+        /// </summary>
+        public string NationCode { get; set; }
+
+        /// <summary>
+        /// 电话号码
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 
     /// <summary>
@@ -43,8 +62,33 @@ namespace Maydear.Infrastructure
         /// <summary>
         /// 发送短信
         /// </summary>
-        /// <param name="sms">短信内容</param>
+        /// <param name="sms">短信</param>
         /// <returns></returns>
         bool Send(Sms sms);
+
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="smsFunc">短信委托</param>
+        /// <returns></returns>
+        bool Send(Func<Sms> smsFunc);
+
+        /// <summary>
+        /// 异步发送短信
+        /// </summary>
+        /// <param name="sms">短信</param>
+        /// <param name="canceltoken">取消令牌</param>
+        /// <returns></returns>
+        Task<bool> SendAsync(Sms sms, CancellationToken canceltoken = default(CancellationToken));
+
+        /// <summary>
+        /// 异步发送短信
+        /// </summary>
+        /// <param name="smsFunc">短信委托</param>
+        /// <param name="canceltoken">取消令牌</param>
+        /// <returns></returns>
+        Task<bool> SendAsync(Func<Sms> smsFunc, CancellationToken canceltoken = default(CancellationToken));
+
+
     }
 }

@@ -15,14 +15,15 @@
 *****************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Maydear.Exceptions
 {
-
     /// <summary>
     /// 加密的密钥长度不足时引发异常
     /// </summary>
+    [Serializable]
     public class KeySizeException : MaydearException
     {
         /// <summary>
@@ -41,7 +42,7 @@ namespace Maydear.Exceptions
         /// <summary>
         /// 加密的密钥长度不足时引发异常。
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="keySize">密钥长度</param>
         public KeySizeException(int keySize)
             : base($"密钥长度不足，请使用{keySize}位的密钥。") { }
 
@@ -51,5 +52,17 @@ namespace Maydear.Exceptions
         /// <param name="innerException"></param>
         public KeySizeException(Exception innerException)
             : base("加密的key长度不足引发异常。", innerException) { }
+
+
+        /// <summary>
+        /// 用序列化数据初始化<see cref="KeySizeException"/>类的新实例。
+        /// </summary>
+        /// <remarks>
+        /// 在反序列化过程中调用该构造函数来重建通过流传输的异常对象.
+        /// </remarks>
+        /// <param name="info">保存序列化对象<see cref="System.Runtime.Serialization.SerializationInfo"/>数据的对象。</param>
+        /// <param name="context">有关源或目标的上下文信息。</param>
+        protected KeySizeException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
     }
 }

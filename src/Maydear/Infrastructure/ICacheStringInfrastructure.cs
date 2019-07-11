@@ -23,19 +23,19 @@ using System.Threading.Tasks;
 namespace Maydear.Infrastructure
 {
     /// <summary>
-    /// Redis操作接口
+    /// 字符缓存操作接口
     /// </summary>
-    public interface IRedisStringInfrastructure : IDisposable
+    public interface ICacheStringInfrastructure : IDisposable
     {
         /// <summary>
-        /// 读取Redis指定的键值
+        /// 读取字符缓存指定的键值
         /// </summary>
         /// <param name="key">待获取数据的键</param>
         /// <returns></returns>
         string Get(string key);
 
         /// <summary>
-        ///  异步读取Redis指定的键值
+        ///  异步读取字符缓存指定的键值
         /// </summary>
         /// <param name="key">待获取数据的键值</param>
         /// <param name="cancellationToken">线程销毁令牌</param>
@@ -51,7 +51,7 @@ namespace Maydear.Infrastructure
         void Set(string key, string value, TimeSpan? expiry = null);
 
         /// <summary>
-        /// 将指定的键及对应的值设置到Redis
+        /// 将指定的键及对应的值设置到缓存
         /// </summary>
         /// <param name="key">待设置数据的键</param>
         /// <param name="value">待设置的数据</param>
