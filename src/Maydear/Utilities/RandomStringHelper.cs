@@ -30,9 +30,9 @@ namespace Maydear.Utilities
         /// </summary>
         /// <param name="count">字符串长度</param>
         /// <returns>返回指定长度的字母字符串</returns>
-        public static string NextLettersString(int count)
+        public static string NextLettersString(int length)
         {
-            if (count <= 0)
+            if (length <= 0)
             {
                 return string.Empty;
             }
@@ -40,7 +40,7 @@ namespace Maydear.Utilities
             const int asciiStart = (int)'a';
             const int asciiEnd = (int)'z';
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < length; i++)
             {
                 sb.Append((char)RandomHelper.Next(asciiStart, asciiEnd));
             }
@@ -52,9 +52,9 @@ namespace Maydear.Utilities
         /// </summary>
         /// <param name="count">待返回字符串长度</param>
         /// <returns>返回指定长度的Ascii字符串</returns>
-        public static string NextAsciiString(int count)
+        public static string NextAsciiString(int length)
         {
-            if (count <= 0)
+            if (length <= 0)
             {
                 return string.Empty;
             }
@@ -62,7 +62,7 @@ namespace Maydear.Utilities
             const int asciiStart = 33;
             const int asciiEnd = 126;
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < length; i++)
             {
                 sb.Append((char)RandomHelper.Next(asciiStart, asciiEnd));
             }
@@ -74,14 +74,14 @@ namespace Maydear.Utilities
         /// </summary>
         /// <param name="count">字符串长度</param>
         /// <returns>返回指定长度的数字字符串</returns>
-        public static string NextNumberString(int count)
+        public static string NextNumberString(int length)
         {
-            if (count <= 0)
+            if (length <= 0)
             {
                 return string.Empty;
             }
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < length; i++)
             {
                 sb.Append((char)RandomHelper.Next(0, 9));
             }
@@ -94,14 +94,14 @@ namespace Maydear.Utilities
         /// <param name="count">字符串长度</param>
         /// <param name="source">来源字符数据</param>
         /// <returns>返回指定长度的字符串</returns>
-        public static string NextString(int count,string source)
+        public static string NextString(int length, string source)
         {
-            if (count <= 0)
+            if (length <= 0)
             {
                 return string.Empty;
             }
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < length; i++)
             {
                 sb.Append((char)RandomHelper.Next<char>(source.ToCharArray()));
             }

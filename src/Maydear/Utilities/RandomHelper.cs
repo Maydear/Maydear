@@ -15,6 +15,7 @@
 *****************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Maydear.Utilities
@@ -27,7 +28,7 @@ namespace Maydear.Utilities
         /// <summary>
         /// 随机对象
         /// </summary>
-        private static readonly Random random = new Random(DateTimeOffset.Now.Millisecond);
+        private static readonly RandomNumberGenerator randomGenerator = RandomNumberGenerator.Create();
 
         /// <summary>
         /// 随机获取一个布尔值
@@ -35,19 +36,20 @@ namespace Maydear.Utilities
         /// <returns></returns>
         public static bool NextBoolean()
         {
-            return random.Next(0, 1) > 0;
+            byte[] result = new byte[typeof(bool)];
+            randomGenerator.GetBytes(buffer);
+            return BitConverter.ToBoolean(buffer, 0);
         }
 
         /// <summary>
         /// 随机获取一个二进制数组
         /// </summary>
-        /// <param name="count">数组长度</param>
+        /// <param name="length">数组长度</param>
         /// <returns></returns>
-        public static byte[] NextBytes(int count)
+        public static byte[] NextBytes(int length)
         {
-            byte[] result = new byte[count];
-            random.NextBytes(result);
-
+            byte[] result = new byte[length];
+            randomGenerator.GetBytes(buffer);
             return result;
         }
 
@@ -58,7 +60,11 @@ namespace Maydear.Utilities
         /// <returns>返回最大值内的整形数值</returns>
         public static int Next(int maxValue)
         {
-            return random.Next(maxValue);
+            var value = Next();
+            if (value > maxValue)
+                return Next(maxValue);
+            else
+                return value;
         }
 
         /// <summary>
@@ -69,7 +75,11 @@ namespace Maydear.Utilities
         /// <returns>返回区间内的整形数值</returns>
         public static int Next(int minValue, int maxValue)
         {
-            return random.Next(minValue, maxValue);
+            var value = Next();
+            if (value > maxValue && value < minValue)
+                return Next(minValue, maxValue);
+            else
+                return value;
         }
 
         /// <summary>
@@ -78,16 +88,20 @@ namespace Maydear.Utilities
         /// <returns>返回[-2147483648,2147483647]内的整形数值</returns>
         public static int Next()
         {
-            return random.Next(int.MinValue,int.MaxValue);
+            var buffer = new byte[sizeof(Int32)];
+            randomGenerator.GetBytes(buffer);
+            return BitConverter.ToInt32(buffer, 0);
         }
 
         /// <summary>
         /// 随机获取[0,2147483647]一个整型数值
         /// </summary>
         /// <returns>返回[0,2147483647]内的整形数值</returns>
-        public static int NextInt()
+        public static uint NextUInt()
         {
-            return random.Next(0, int.MaxValue);
+            var buffer = new byte[sizeof(UInt32)];
+            randomGenerator.GetBytes(buffer);
+            return BitConverter.ToUInt32(buffer, 0);
         }
 
         /// <summary>
@@ -97,7 +111,7 @@ namespace Maydear.Utilities
         public static long NextLong()
         {
             var buffer = new byte[sizeof(Int64)];
-            random.NextBytes(buffer);
+            randomGenerator.GetBytes(buffer);
             return BitConverter.ToInt64(buffer, 0);
         }
 
@@ -108,7 +122,7 @@ namespace Maydear.Utilities
         public static float NextFloat()
         {
             var buffer = new byte[sizeof(float)];
-            random.NextBytes(buffer);
+            randomGenerator.GetBytes(buffer);
             return BitConverter.ToSingle(buffer, 0);
         }
 
@@ -119,7 +133,7 @@ namespace Maydear.Utilities
         public static double NextDouble()
         {
             var buffer = new byte[sizeof(double)];
-            random.NextBytes(buffer);
+            randomGenerator.GetBytes(buffer);
             return BitConverter.ToDouble(buffer, 0);
         }
 
