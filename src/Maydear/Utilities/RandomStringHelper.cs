@@ -42,7 +42,7 @@ namespace Maydear.Utilities
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
-                sb.Append((char)RandomHelper.Next(asciiStart, asciiEnd));
+                sb.Append(Convert.ToChar(RandomHelper.Next(asciiStart, asciiEnd)));
             }
             return sb.ToString();
         }
@@ -64,7 +64,8 @@ namespace Maydear.Utilities
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
-                sb.Append((char)RandomHelper.Next(asciiStart, asciiEnd));
+                var index = RandomHelper.Next(asciiStart, asciiEnd);
+                sb.Append(Convert.ToChar(index));
             }
             return sb.ToString();
         }
@@ -83,7 +84,7 @@ namespace Maydear.Utilities
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
-                sb.Append((char)RandomHelper.Next(0, 9));
+                sb.Append(RandomHelper.Next(0, 9));
             }
             return sb.ToString();
         }
@@ -103,7 +104,7 @@ namespace Maydear.Utilities
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
-                sb.Append((char)RandomHelper.Next<char>(source.ToCharArray()));
+                sb.Append(RandomHelper.Next<char>(source.ToCharArray()));
             }
             return sb.ToString();
         }
