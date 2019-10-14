@@ -53,7 +53,7 @@ namespace Maydear
         /// <summary>
         /// 数据集合
         /// </summary>
-        IEnumerable<T> Data { get; set; }
+        IEnumerable<T> Records { get; set; }
     }
 
     /// <summary>
@@ -101,21 +101,21 @@ namespace Maydear
         /// <summary>
         /// 数据集合
         /// </summary>
-        public IEnumerable<T> Data { get; set; }
+        public IEnumerable<T> Records { get; set; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="data">数据集合</param>
+        /// <param name="records">数据集合</param>
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">每次返回的最大数量</param>
-        public PageCollection(IEnumerable<T> data, long recordCount, int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
+        public PageCollection(IEnumerable<T> records, long recordCount, int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
         {
             PageSize = pageSize;
             PageIndex = pageIndex;
             RecordCount = recordCount;
-            Data = data;
+            Records = records;
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Maydear
         /// <summary>
         /// 列表集合
         /// </summary>
-        public new IList<T> Data { get; set; }
+        public new IList<T> Records { get; set; }
 
         /// <summary>
         /// 构造一个分页列表实体
@@ -143,12 +143,12 @@ namespace Maydear
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页宽</param>
-        public PageList(IList<T> data, long recordCount, int pageIndex, int pageSize) : base(data, recordCount, pageIndex, pageSize)
+        public PageList(IList<T> records, long recordCount, int pageIndex, int pageSize) : base(data, recordCount, pageIndex, pageSize)
         {
             PageSize = pageSize;
             PageIndex = pageIndex;
             RecordCount = recordCount;
-            Data = data;
+            Records = records;
         }
 
         /// <summary>
