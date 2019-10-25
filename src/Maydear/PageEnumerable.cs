@@ -21,7 +21,7 @@ namespace Maydear
     /// <summary>
     /// 带分页的实体集合
     /// </summary>
-    public interface IPageCollection
+    public interface IPageEnumerable
     {
         /// <summary>
         /// 页宽
@@ -48,7 +48,7 @@ namespace Maydear
     /// 带分页的实体集合
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IPageCollection<T> : IPageCollection
+    public interface IPageEnumerable<T> : IPageEnumerable
     {
         /// <summary>
         /// 数据集合
@@ -60,7 +60,7 @@ namespace Maydear
     /// 带分页的实体集合
     /// </summary>
     /// <typeparam name="T">带实例化的实体</typeparam>
-    public class PageCollection<T> : IPageCollection<T>
+    public class PageEnumerable<T> : IPageEnumerable<T>
     {
         /// <summary>
         /// 总页数
@@ -110,7 +110,7 @@ namespace Maydear
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">每次返回的最大数量</param>
-        public PageCollection(IEnumerable<T> records, long recordCount, int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
+        public PageEnumerable(IEnumerable<T> records, long recordCount, int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
         {
             PageSize = pageSize;
             PageIndex = pageIndex;
@@ -121,7 +121,7 @@ namespace Maydear
         /// <summary>
         /// 构造函数
         /// </summary>
-        public PageCollection(int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
+        public PageEnumerable(int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
         { }
     }
 
@@ -129,7 +129,7 @@ namespace Maydear
     /// 分页实体
     /// </summary>
     /// <typeparam name="T">带实例化的实体</typeparam>
-    public class PageList<T> : PageCollection<T>, IPageCollection<T>
+    public class PageList<T> : PageEnumerable<T>
     {
         /// <summary>
         /// 列表集合

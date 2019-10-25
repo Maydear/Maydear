@@ -8,7 +8,7 @@ namespace Maydear
     /// <summary>
     /// 分页实体扩展
     /// </summary>
-    public static class PageCollectionExtension
+    public static class PageEnumerableExtension
     {
         /// <summary>
         /// 转换分页实体
@@ -18,9 +18,9 @@ namespace Maydear
         /// <param name="sourcePageCollection">源分页实体</param>
         /// <param name="convert">转换的方法</param>
         /// <returns></returns>
-        public static IPageCollection<TTarget> Convert<TSource, TTarget>(this IPageCollection<TSource> sourcePageCollection, Func<TSource, TTarget> convert)
+        public static IPageEnumerable<TTarget> Convert<TSource, TTarget>(this IPageEnumerable<TSource> sourcePageCollection, Func<TSource, TTarget> convert)
         {
-            return new PageCollection<TTarget>(sourcePageCollection.Records.Select(convert), sourcePageCollection.RecordCount, sourcePageCollection.PageIndex, sourcePageCollection.PageSize);
+            return new PageEnumerable<TTarget>(sourcePageCollection.Records.Select(convert), sourcePageCollection.RecordCount, sourcePageCollection.PageIndex, sourcePageCollection.PageSize);
         }
     }
 }
