@@ -20,7 +20,7 @@ namespace Maydear
         /// <returns></returns>
         public static IPageCollection<TTarget> Convert<TSource, TTarget>(this IPageCollection<TSource> sourcePageCollection, Func<TSource, TTarget> convert)
         {
-            return new PageCollection<TTarget>(sourcePageCollection.Data.Select(a => convert(a)), sourcePageCollection.RecordCount, sourcePageCollection.PageIndex, sourcePageCollection.PageSize);
+            return new PageCollection<TTarget>(sourcePageCollection.Records.Select(convert), sourcePageCollection.RecordCount, sourcePageCollection.PageIndex, sourcePageCollection.PageSize);
         }
     }
 }

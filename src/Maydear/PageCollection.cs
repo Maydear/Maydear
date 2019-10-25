@@ -143,7 +143,7 @@ namespace Maydear
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页宽</param>
-        public PageList(IList<T> records, long recordCount, int pageIndex, int pageSize) : base(data, recordCount, pageIndex, pageSize)
+        public PageList(IList<T> records, long recordCount, int pageIndex, int pageSize) : base(records, recordCount, pageIndex, pageSize)
         {
             PageSize = pageSize;
             PageIndex = pageIndex;
