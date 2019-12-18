@@ -380,6 +380,8 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="data">待加密的明文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
         /// <returns>返回AES加密后的Base64编码的密文</returns>
         public static string AesEncryptToBase64(this string data, string password, CipherMode mode, PaddingMode padding)
         {
@@ -413,9 +415,28 @@ namespace System.Security.Cryptography
         /// <returns>返回一个Base64编码的密文</returns>
         public static string AesEncryptToBase64(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
+            return AesEncryptToBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.CBC, PaddingMode.PKCS7);
+        }
+
+        /// <summary>
+        /// AES加密
+        /// </summary>
+        /// <param name="data">待加密的明文</param>
+        /// <param name="password">加密公钥</param>
+        /// <param name="iv"></param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">填充模式</param>
+        /// <returns>返回一个Base64编码的密文</returns>
+        public static string AesEncryptToBase64(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
+        {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
                 return data;
+            }
+
+            if (iv.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(iv));
             }
 
             byte[] toEncryptArray = data.ToBytes();
@@ -426,12 +447,14 @@ namespace System.Security.Cryptography
                 throw new KeySizeException(length);
             }
             aesProvider.Key = password;
+            aesProvider.IV = iv;
             aesProvider.Mode = mode;
             aesProvider.Padding = padding;
             ICryptoTransform cTransform = aesProvider.CreateEncryptor();
             byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
             return resultArray.ToBase64String();
         }
+
 
         /// <summary>
         /// AES加密
@@ -449,6 +472,8 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="data">待加密的明文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
         /// <returns>返回一个16进制字符编码的密文</returns>
         public static string AesEncryptToHex(this string data, string password, CipherMode mode, PaddingMode padding)
         {
@@ -477,8 +502,24 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="data">待加密的明文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
         /// <returns>返回一个16进制字符编码的密文</returns>
         public static string AesEncryptToHex(this string data, byte[] password, CipherMode mode, PaddingMode padding)
+        {
+            return AesEncryptToHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.CBC, PaddingMode.PKCS7);
+        }
+
+        /// <summary>
+        /// AES加密
+        /// </summary>
+        /// <param name="data">待加密的明文</param>
+        /// <param name="password">加密公钥</param>
+        /// <param name="iv">向量</param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">排列模式</param>
+        /// <returns>返回一个16进制字符编码的密文</returns>
+        public static string AesEncryptToHex(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
@@ -494,6 +535,7 @@ namespace System.Security.Cryptography
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
+            aesProvider.IV = iv;
             aesProvider.Padding = padding;
             ICryptoTransform cTransform = aesProvider.CreateDecryptor();
             byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
@@ -520,6 +562,8 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="data">待解密的密文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormBase64(this string data, string password, CipherMode mode, PaddingMode padding)
         {
@@ -543,15 +587,32 @@ namespace System.Security.Cryptography
             return AesDecryptFormBase64(data, password, CipherMode.CBC, PaddingMode.PKCS7);
         }
 
+
         /// <summary>
         /// AES解密
         /// </summary>
         /// <param name="data">待解密的密文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="iv">向量</param>
         /// <param name="mode">加密模式</param>
         /// <param name="padding">填充模式</param>
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormBase64(this string data, byte[] password, CipherMode mode, PaddingMode padding)
+        {
+            return AesDecryptFormBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.CBC, PaddingMode.PKCS7);
+        }
+
+
+        /// <summary>
+        /// AES解密
+        /// </summary>
+        /// <param name="data">待解密的密文</param>
+        /// <param name="password">加密公钥</param>
+        /// <param name="iv">向量</param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">填充模式</param>
+        /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
+        public static string AesDecryptFormBase64(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
@@ -566,6 +627,7 @@ namespace System.Security.Cryptography
             {
                 throw new KeySizeException(length);
             }
+            aesProvider.IV = iv;
             aesProvider.Key = password;
             aesProvider.Mode = mode;
             aesProvider.Padding = padding;
@@ -623,6 +685,20 @@ namespace System.Security.Cryptography
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormHex(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
+            return AesDecryptFormHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.CBC, PaddingMode.PKCS7);
+        }
+        
+        /// <summary>
+        /// AES解密
+        /// </summary>
+        /// <param name="data">待解密的密文</param>
+        /// <param name="password">加密公钥</param>
+        /// <param name="iv">向量</param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">填充模式</param>
+        /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
+        public static string AesDecryptFormHex(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
+        {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
                 return data;
@@ -644,6 +720,7 @@ namespace System.Security.Cryptography
             }
             aesProvider.Key = password;
             aesProvider.Mode = mode;
+            aesProvider.IV = iv;
             aesProvider.Padding = padding;
             ICryptoTransform cTransform = aesProvider.CreateDecryptor();
             byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
