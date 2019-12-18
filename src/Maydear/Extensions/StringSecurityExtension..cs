@@ -415,7 +415,7 @@ namespace System.Security.Cryptography
         /// <returns>返回一个Base64编码的密文</returns>
         public static string AesEncryptToBase64(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
-            return AesEncryptToBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.ECB, PaddingMode.PKCS7);
+            return AesEncryptToBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), mode, padding);
         }
 
         /// <summary>
@@ -507,7 +507,7 @@ namespace System.Security.Cryptography
         /// <returns>返回一个16进制字符编码的密文</returns>
         public static string AesEncryptToHex(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
-            return AesEncryptToHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.ECB, PaddingMode.PKCS7);
+            return AesEncryptToHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), mode, padding);
         }
 
         /// <summary>
@@ -598,7 +598,7 @@ namespace System.Security.Cryptography
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormBase64(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
-            return AesDecryptFormBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.ECB, PaddingMode.PKCS7);
+            return AesDecryptFormBase64(data, password, Encoding.UTF8.GetBytes("0000000000000000"), mode, padding);
         }
 
 
@@ -662,6 +662,8 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="data">待解密的密文</param>
         /// <param name="password">加密公钥</param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormHex(this string data, string password, CipherMode mode, PaddingMode padding)
         {
@@ -684,7 +686,7 @@ namespace System.Security.Cryptography
         /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
         public static string AesDecryptFormHex(this string data, byte[] password, CipherMode mode, PaddingMode padding)
         {
-            return AesDecryptFormHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), CipherMode.ECB, PaddingMode.PKCS7);
+            return AesDecryptFormHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), mode, padding);
         }
         
         /// <summary>
