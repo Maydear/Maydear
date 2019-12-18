@@ -14,7 +14,7 @@ namespace MaydearUnitTestCore
         {
             string data = "{\"visitorId\":1,\"visitorUid\":\"5a793d61-c93f-48b9-84fe-ac2f3c86d3f1\",\"name\":\"测试访客\" }";
             string key = "bc77ea2a00198995000000065df8e867";
-            string encryptText = data.AesEncryptToBase64(key,CipherMode.ECB,PaddingMode.PKCS7);
+            string encryptText = data.AesEncryptToBase64(key,CipherMode.CBC, PaddingMode.PKCS7);
             Console.WriteLine(encryptText);
         }
 
