@@ -22,10 +22,30 @@ using System.Threading.Tasks;
 namespace Maydear.Infrastructure
 {
     /// <summary>
+    /// 短信发送模式
+    /// </summary>
+    public enum SmsSendMode
+    {
+        /// <summary>
+        /// 以正文方式发送
+        /// </summary>
+        Content = 0,
+
+        /// <summary>
+        /// 模板方式发送
+        /// </summary>
+        TemplateCode = 1
+    }
+
+    /// <summary>
     /// 短信内容
     /// </summary>
     public class Sms
     {
+        /// <summary>
+        /// 短信发送模式
+        /// </summary>
+        public SmsSendMode Mode { get; set; }
 
         /// <summary>
         /// 电话
@@ -36,6 +56,16 @@ namespace Maydear.Infrastructure
         /// 短信正文
         /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// 模板码
+        /// </summary>
+        public string TemplateCode { get; set; }
+
+        /// <summary>
+        /// 模板参数
+        /// </summary>
+        public IDictionary<string, string> TemplateParameters { get; set; }
     }
 
     /// <summary>
@@ -88,7 +118,6 @@ namespace Maydear.Infrastructure
         /// <param name="canceltoken">取消令牌</param>
         /// <returns></returns>
         Task<bool> SendAsync(Func<Sms> smsFunc, CancellationToken canceltoken = default(CancellationToken));
-
 
     }
 }
