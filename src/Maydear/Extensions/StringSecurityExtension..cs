@@ -364,6 +364,13 @@ namespace System.Security.Cryptography
         #endregion
 
         #region AesEncrypt
+
+        /// <summary>
+        /// AES加密【Cipher：ECB，Padding：PKCS7】
+        /// </summary>
+        /// <param name="data">待加密的明文</param>
+        /// <param name="password">加密公钥</param>
+        /// <returns>返回AES加密后二进制数据</returns>
         public static byte[] AesEncrypt(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
