@@ -80,6 +80,8 @@ namespace System
         /// <returns>返回 inArray 的字符串表示形式，以 encoding参数指定的 字符编码表示。</returns>
         public static string ToTextString(this byte[] inArray, Encoding encoding)
         {
+            if (inArray == null || inArray.Length == 0)
+                return string.Empty;
             return encoding.GetString(inArray);
         }
     }
