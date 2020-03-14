@@ -364,6 +364,32 @@ namespace System.Security.Cryptography
         #endregion
 
         #region AesEncrypt
+        public static byte[] AesEncrypt(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
+        {
+            if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            if (iv.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(iv));
+            }
+
+            byte[] toEncryptArray = data.ToBytes();
+            Aes aesProvider = Aes.Create();
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
+            {
+                throw new KeySizeException(length);
+            }
+            aesProvider.Key = password;
+            aesProvider.IV = iv;
+            aesProvider.Mode = mode;
+            aesProvider.Padding = padding;
+            ICryptoTransform cTransform = aesProvider.CreateEncryptor();
+            return cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+        }
         /// <summary>
         /// AES加密【Cipher：ECB，Padding：PKCS7】
         /// </summary>
@@ -429,30 +455,7 @@ namespace System.Security.Cryptography
         /// <returns>返回一个Base64编码的密文</returns>
         public static string AesEncryptToBase64(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
-            if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
-            {
-                return data;
-            }
-
-            if (iv.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(iv));
-            }
-
-            byte[] toEncryptArray = data.ToBytes();
-            Aes aesProvider = Aes.Create();
-            int length = aesProvider.Key.Length;
-            if (password.Length < length)
-            {
-                throw new KeySizeException(length);
-            }
-            aesProvider.Key = password;
-            aesProvider.IV = iv;
-            aesProvider.Mode = mode;
-            aesProvider.Padding = padding;
-            ICryptoTransform cTransform = aesProvider.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return resultArray.ToBase64String();
+            return AesEncrypt(data, password, iv, mode, padding)?.ToBase64String();
         }
 
 
@@ -521,30 +524,39 @@ namespace System.Security.Cryptography
         /// <returns>返回一个16进制字符编码的密文</returns>
         public static string AesEncryptToHex(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
-            if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
-            {
-                return data;
-            }
-
-            byte[] toEncryptArray = Encoding.UTF8.GetBytes(data);
-            Aes aesProvider = Aes.Create();
-            int length = aesProvider.Key.Length;
-            if (password.Length < length)
-            {
-                throw new KeySizeException(length);
-            }
-            aesProvider.Key = password;
-            aesProvider.Mode = mode;
-            aesProvider.IV = iv;
-            aesProvider.Padding = padding;
-            ICryptoTransform cTransform = aesProvider.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return resultArray.ToHexString();
+            return AesEncrypt(data, password, iv, mode, padding)?.ToHexString();
         }
 
         #endregion
 
         #region AesDecrypt
+
+        /// <summary>
+        /// AES解密
+        /// </summary>
+        /// <param name="data">待解密的密文</param>
+        /// <param name="password">加密公钥</param>
+        /// <param name="iv">向量</param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">填充模式</param>
+        /// <returns>返回一个由AesEncrypt加密而得到的明文</returns>
+        public static string AesDecrypt(this byte[] data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
+        {
+            Aes aesProvider = Aes.Create();
+
+            int length = aesProvider.Key.Length;
+            if (password.Length < length)
+            {
+                throw new KeySizeException(length);
+            }
+            aesProvider.IV = iv;
+            aesProvider.Key = password;
+            aesProvider.Mode = mode;
+            aesProvider.Padding = padding;
+            ICryptoTransform cTransform = aesProvider.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(data, 0, data.Length);
+            return Encoding.UTF8.GetString(resultArray);
+        }
 
         /// <summary>
         /// AES解密【Cipher：ECB，Padding：PKCS7】
@@ -619,20 +631,7 @@ namespace System.Security.Cryptography
             }
 
             byte[] toEncryptArray = Convert.FromBase64String(data);
-            Aes aesProvider = Aes.Create();
-
-            int length = aesProvider.Key.Length;
-            if (password.Length < length)
-            {
-                throw new KeySizeException(length);
-            }
-            aesProvider.IV = iv;
-            aesProvider.Key = password;
-            aesProvider.Mode = mode;
-            aesProvider.Padding = padding;
-            ICryptoTransform cTransform = aesProvider.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return Encoding.UTF8.GetString(resultArray);
+            return AesDecrypt(toEncryptArray, password, iv, mode, padding);
         }
 
         /// <summary>
@@ -688,7 +687,7 @@ namespace System.Security.Cryptography
         {
             return AesDecryptFormHex(data, password, Encoding.UTF8.GetBytes("0000000000000000"), mode, padding);
         }
-        
+
         /// <summary>
         /// AES解密
         /// </summary>
@@ -712,20 +711,7 @@ namespace System.Security.Cryptography
                 toEncryptArray[i / 2] = Convert.ToByte(data.Substring(i, 2), 16);
             }
 
-            Aes aesProvider = Aes.Create();
-
-            int length = aesProvider.Key.Length;
-            if (password.Length < length)
-            {
-                throw new KeySizeException(length);
-            }
-            aesProvider.Key = password;
-            aesProvider.Mode = mode;
-            aesProvider.IV = iv;
-            aesProvider.Padding = padding;
-            ICryptoTransform cTransform = aesProvider.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return Encoding.UTF8.GetString(resultArray);
+            return AesDecrypt(toEncryptArray, password, iv, mode, padding);
         }
 
         #endregion

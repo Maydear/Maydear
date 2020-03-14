@@ -32,9 +32,27 @@ namespace MaydearUnitTestCore
         [TestMethod]
         public void AesEncryptToHex()
         {
-            string data = "1111";
-            string key = "bc77ea2a00198995000000065df8e867";
-            data.AesEncryptToHex(key);
+            string data = "realperson/510b0aeb86dc445297d0acb60e8bbb11.png";
+            string key = "a8e841976f6a4fae9bb503cd5f6fb3e8";
+            string encryptText = data.AesEncryptToHex(key);
+            Console.WriteLine(encryptText);
+        }
+
+        [TestMethod]
+        public void AesEncryptToBase642()
+        {
+            string data = "realperson/510b0aeb86dc445297d0acb60e8bbb11.png";
+            string key = "a8e841976f6a4fae9bb503cd5f6fb3e8";
+            string encryptText = data.AesEncryptToBase64(key);
+            Console.WriteLine(encryptText);
+        }
+
+        [TestMethod]
+        public void AesDecryptToHex()
+        {
+            string data = "27f400b3774930b3f36e10568da241b2b8f3434eb081bee8e52235ea059835202844f0e26205eaadf809a6ca884a3e9b";
+            string key = "a8e841976f6a4fae9bb503cd5f6fb3e8";
+            data.AesDecryptFormHex(key);
         }
     }
 }
