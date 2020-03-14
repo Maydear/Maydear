@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.1;net46;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;net46;</TargetFrameworks>
         <PackageProjectUrl>https://github.com/Maydear/Maydear</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Maydear/Maydear.git</RepositoryUrl>
         <PackageIconUrl>http://oss.lvcoco.com/static/logo.png</PackageIconUrl>
