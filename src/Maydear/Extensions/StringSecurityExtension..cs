@@ -37,7 +37,7 @@ namespace System.Security.Cryptography
         #region HmacMD5
 
         /// <summary>
-        /// 独有干扰MD5加密
+        /// 带密钥MD5加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -55,7 +55,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰MD5加密
+        /// 带密钥MD5加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -71,7 +71,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰MD5加密
+        /// 带密钥MD5加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -87,7 +87,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰MD5加密并返回Base64格式
+        /// 带密钥MD5加密并返回Base64格式
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -103,7 +103,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰MD5加密
+        /// 带密钥MD5加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -172,10 +172,150 @@ namespace System.Security.Cryptography
 
         #endregion
 
+        #region HmacSHA512
+
+        /// <summary>
+        /// 带密钥SHA512加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA512加密后的二进制数组</returns>
+        public static byte[] HMACSHA512(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            System.Security.Cryptography.HMACSHA512 sha512Provider = new System.Security.Cryptography.HMACSHA512(key);
+
+            return sha512Provider.ComputeHash(data.ToBytes());
+        }
+
+        /// <summary>
+        /// 带密钥SHA512加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA512加密后的十六进制编码字符串</returns>
+        public static string HMACSHA512ToHex(this string data, string key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+
+            byte[] hashBuff = data.HMACSHA512(key.ToBytes());
+
+            return hashBuff.ToHexString();
+        }
+
+        /// <summary>
+        /// 带密钥SHA512加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA512加密后的十六进制编码字符串</returns>
+        public static string HMACSHA512ToHex(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+            byte[] hashBuff = data.HMACSHA512(key);
+            return hashBuff.ToHexString();
+        }
+
+
+        /// <summary>
+        /// 带密钥SHA512加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA512加密后的Base64编码字符串</returns>
+        public static string HMACSHA512ToBase64(this string data, string key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+
+            byte[] hashBuff = data.HMACSHA512(key.ToBytes());
+            return hashBuff.ToBase64String();
+        }
+
+        /// <summary>
+        /// 带密钥SHA512加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA512加密后的十六进制编码字符串</returns>
+        public static string HMACSHA512ToBase64(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+            byte[] hashBuff = data.HMACSHA512(key);
+            return hashBuff.ToBase64String();
+        }
+
+        #endregion
+
+        #region SHA512
+
+        /// <summary>
+        /// HA256加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回SHA512加密后的Base64编码密文</returns>
+        public static byte[] SHA512(this string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+            SHA512Managed sHA256Managed = new SHA512Managed();
+            return sHA256Managed.ComputeHash(data.ToBytes());
+        }
+
+
+        /// <summary>
+        /// HA256加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回SHA512加密后的Base64编码密文</returns>
+        public static string SHA512ToBase64(this string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return string.Empty;
+            }
+            byte[] inArray = data.SHA512();
+            return inArray.ToBase64String();
+        }
+
+        /// <summary>
+        /// HA256加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <returns>返回SHA512加密后的十六进制格式密文</returns>
+        public static string SHA512ToHex(this string data)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                return string.Empty;
+            }
+            byte[] inArray = data.SHA512();
+            return inArray.ToHexString();
+        }
+
+        #endregion
+
         #region HmacSha256
 
         /// <summary>
-        /// 独有干扰HA256加密
+        /// 带密钥SHA256加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -193,7 +333,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰HA256加密
+        /// 带密钥SHA256加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -211,7 +351,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰HA256加密
+        /// 带密钥SHA256加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -228,7 +368,7 @@ namespace System.Security.Cryptography
 
 
         /// <summary>
-        /// 独有干扰HA256加密
+        /// 带密钥SHA256加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -245,7 +385,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 独有干扰HA256加密
+        /// 带密钥SHA256加密
         /// </summary>
         /// <param name="data">待加密的数据</param>
         /// <param name="key">加密的密钥</param>
@@ -359,6 +499,96 @@ namespace System.Security.Cryptography
             }
             byte[] inArray = data.SHA1();
             return inArray.ToHexString();
+        }
+
+        #endregion
+
+        #region HmacSha1
+
+        /// <summary>
+        /// 带密钥SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA1加密后的二进制数组</returns>
+        public static byte[] HMACSHA1(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            System.Security.Cryptography.HMACSHA1 sha1Provider = new System.Security.Cryptography.HMACSHA1(key);
+
+            return sha1Provider.ComputeHash(data.ToBytes());
+        }
+
+        /// <summary>
+        /// 带密钥SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA1加密后的十六进制编码字符串</returns>
+        public static string HMACSHA1ToHex(this string data, string key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+
+            byte[] hashBuff = data.HMACSHA1(key.ToBytes());
+
+            return hashBuff.ToHexString();
+        }
+
+        /// <summary>
+        /// 带密钥SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA1加密后的十六进制编码字符串</returns>
+        public static string HMACSHA1ToHex(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+            byte[] hashBuff = data.HMACSHA1(key);
+            return hashBuff.ToHexString();
+        }
+
+
+        /// <summary>
+        /// 带密钥SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA1加密后的Base64编码字符串</returns>
+        public static string HMACSHA1ToBase64(this string data, string key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+
+            byte[] hashBuff = data.HMACSHA1(key.ToBytes());
+            return hashBuff.ToBase64String();
+        }
+
+        /// <summary>
+        /// 带密钥SHA1加密
+        /// </summary>
+        /// <param name="data">待加密的数据</param>
+        /// <param name="key">加密的密钥</param>
+        /// <returns>返回HMACSHA1加密后的十六进制编码字符串</returns>
+        public static string HMACSHA1ToBase64(this string data, byte[] key)
+        {
+            if (data.IsNullOrEmpty() || key.IsNullOrEmpty())
+            {
+                return data;
+            }
+            byte[] hashBuff = data.HMACSHA1(key);
+            return hashBuff.ToBase64String();
         }
 
         #endregion
