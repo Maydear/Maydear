@@ -21,55 +21,42 @@ using System.Text;
 namespace Maydear.Exceptions
 {
     /// <summary>
-    /// (3002)加密的密钥长度不足时引发异常
+    /// (3011)文件不存在引发异常
     /// </summary>
     [Serializable]
-    public class KeySizeException : StatusCodeException
+    public class FileNotExistsException : StatusCodeException
     {
         /// <summary>
-        /// (3002)加密的密钥长度不足的公共错误码。
+        /// 文件不存在时的公共错误码。
         /// </summary>
-        private const int SHORT_KEY_SIZE_STATUS_CODE = 3021;
+        private const int FILE_NOT_EXISTS_STATUS_CODE = 3011;
+
+        public FileNotExistsException() 
+            : base(FILE_NOT_EXISTS_STATUS_CODE, $"指定的文件不存在。")
+        { }
 
         /// <summary>
-        /// (3002)加密的密钥长度不足时引发异常。
+        /// (3011)文件不存在引发异常。
         /// </summary>
-        public KeySizeException()
-            : this("密钥长度不足，请使用更长的密钥。") { }
+        /// <param name="filePath"></param>
+        public FileNotExistsException(string filePath)
+            : base(FILE_NOT_EXISTS_STATUS_CODE, $"未能找到文件“{filePath}”。") { }
 
         /// <summary>
-        /// (3002)加密的密钥长度不足时引发异常。
+        /// (3011)文件不存在引发异常
         /// </summary>
-        /// <param name="keySize">密钥长度</param>
-        public KeySizeException(int keySize)
-            : this($"密钥长度不足，请使用{keySize}位的密钥。") { }
-
-        /// <summary>
-        /// (3002)加密的密钥长度不足时引发异常。
-        /// </summary>
-        /// <param name="message"></param>
-        public KeySizeException(string message)
-            : base(SHORT_KEY_SIZE_STATUS_CODE, message) { }
-
-        /// <summary>
-        ///  (3002)加密的密钥长度不足时引发异常。
-        /// </summary>
-        /// <param name="message"></param>
+        /// <param name="filePath">文件路径</param>
         /// <param name="innerException"></param>
-        public KeySizeException(string message, Exception innerException)
-            : base(SHORT_KEY_SIZE_STATUS_CODE, message, innerException)
-        {
-        }
-
-     
+        public FileNotExistsException(string filePath, Exception innerException) 
+            : base(FILE_NOT_EXISTS_STATUS_CODE, $"未能找到文件“{filePath}”。", innerException)
+        { }
 
         /// <summary>
-        ///  (3002)加密的密钥长度不足时引发异常。
+        /// (3011)文件不存在引发异常
         /// </summary>
         /// <param name="innerException"></param>
-        public KeySizeException(Exception innerException)
-            : base(SHORT_KEY_SIZE_STATUS_CODE, "加密的key长度不足引发异常。", innerException) { }
-
+        public FileNotExistsException(Exception innerException)
+            : base(FILE_NOT_EXISTS_STATUS_CODE, "指定的文件不存在。", innerException) { }
 
         /// <summary>
         /// 用序列化数据初始化<see cref="KeySizeException"/>类的新实例。
@@ -79,9 +66,7 @@ namespace Maydear.Exceptions
         /// </remarks>
         /// <param name="info">保存序列化对象<see cref="System.Runtime.Serialization.SerializationInfo"/>数据的对象。</param>
         /// <param name="context">有关源或目标的上下文信息。</param>
-        protected KeySizeException(SerializationInfo info, StreamingContext context)
+        protected FileNotExistsException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
-
-
     }
 }

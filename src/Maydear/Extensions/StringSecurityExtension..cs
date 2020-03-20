@@ -49,9 +49,8 @@ namespace System.Security.Cryptography
                 return null;
             }
 
-            HMACMD5 md5Provider = new HMACMD5(key);
-
-            return md5Provider.ComputeHash(data.ToBytes());
+            HMACMD5 hmacMd5 = new HMACMD5(key);
+            return hmacMd5.ComputeHash(data.ToBytes());
         }
 
         /// <summary>
@@ -133,8 +132,7 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
-            MD5 md5Provider = new MD5CryptoServiceProvider();
+            MD5 md5Provider = System.Security.Cryptography.MD5.Create();
             return md5Provider.ComputeHash(data.ToBytes());
         }
 
@@ -186,9 +184,7 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
-            System.Security.Cryptography.HMACSHA512 sha512Provider = new System.Security.Cryptography.HMACSHA512(key);
-
+            HMACSHA512 sha512Provider = new HMACSHA512(key);
             return sha512Provider.ComputeHash(data.ToBytes());
         }
 
@@ -275,8 +271,8 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-            SHA512Managed sHA256Managed = new SHA512Managed();
-            return sHA256Managed.ComputeHash(data.ToBytes());
+            var sha512 = System.Security.Cryptography.SHA512.Create();
+            return sha512.ComputeHash(data.ToBytes());
         }
 
 
@@ -326,9 +322,8 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
-            System.Security.Cryptography.HMACSHA256 sha256Provider = new System.Security.Cryptography.HMACSHA256(key);
-
+            HMACSHA256 sha256Provider = new HMACSHA256(key);
+            
             return sha256Provider.ComputeHash(data.ToBytes());
         }
 
@@ -415,8 +410,8 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-            SHA256Managed sHA256Managed = new SHA256Managed();
-            return sHA256Managed.ComputeHash(data.ToBytes());
+            var sHA256 = System.Security.Cryptography.SHA256.Create();
+            return sHA256.ComputeHash(data.ToBytes());
         }
 
 
@@ -466,8 +461,8 @@ namespace System.Security.Cryptography
                 return null;
             }
 
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SHA1 sha1Provider = System.Security.Cryptography.SHA1.Create();
+            byte[] bytes = data.ToBytes();
+            var sha1Provider = System.Security.Cryptography.SHA1.Create();
             return sha1Provider.ComputeHash(bytes);
         }
 
@@ -517,10 +512,8 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
-            System.Security.Cryptography.HMACSHA1 sha1Provider = new System.Security.Cryptography.HMACSHA1(key);
-
-            return sha1Provider.ComputeHash(data.ToBytes());
+            HMACSHA1 hmacSha1 = new HMACSHA1(key);
+            return hmacSha1.ComputeHash(data.ToBytes());
         }
 
         /// <summary>
@@ -596,11 +589,14 @@ namespace System.Security.Cryptography
         #region AesEncrypt
 
         /// <summary>
-        /// AES加密【Cipher：ECB，Padding：PKCS7】
+        /// AES加密
         /// </summary>
         /// <param name="data">待加密的明文</param>
         /// <param name="password">加密公钥</param>
-        /// <returns>返回AES加密后二进制数据</returns>
+        /// <param name="iv">向量</param>
+        /// <param name="mode">加密模式</param>
+        /// <param name="padding">排列模式</param>
+        /// <returns>返回一个二进制数组的密文</returns>
         public static byte[] AesEncrypt(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
         {
             if (data.IsNullOrEmpty() || password.IsNullOrEmpty())
@@ -627,6 +623,7 @@ namespace System.Security.Cryptography
             ICryptoTransform cTransform = aesProvider.CreateEncryptor();
             return cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
         }
+        
         /// <summary>
         /// AES加密【Cipher：ECB，Padding：PKCS7】
         /// </summary>

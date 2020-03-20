@@ -12,12 +12,19 @@ namespace Maydear.Exceptions
     public class StatusCodeException : MaydearException
     {
         /// <summary>
+        /// 不知道怎么定义的状态码
+        /// </summary>
+        private const int DEFAULT_STATUS_CODE = 2001;
+
+        /// <summary>
         /// 错误状态码
         /// </summary>
-        public int StatusCode { get; private set; }
+        public virtual int StatusCode { get; private set; }
 
         /// <summary>
         /// 初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
         /// </summary>
         /// <param name="statusCode">解释异常原因的错误状态码.</param>
         public StatusCodeException(int statusCode)
@@ -28,6 +35,8 @@ namespace Maydear.Exceptions
 
         /// <summary>
         /// 初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
         /// </summary>
         /// <param name="statusCode">解释异常原因的错误状态码.</param>
         /// <param name="message">解释异常原因的错误信息。</param>
@@ -43,6 +52,8 @@ namespace Maydear.Exceptions
 
         /// <summary>
         /// 使用指定<see cref="System.Exception"/>的异常对象初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
         /// </summary>
         /// <remarks>
         /// 本构造函数使用框架预设<para>错误</para>信息.并且以<see cref="System.Exception"/>作为参数。
@@ -56,6 +67,8 @@ namespace Maydear.Exceptions
 
         /// <summary>
         /// 使用指定错误消息和对作为此异常原因的内部异常的引用来初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
         /// </summary>
         /// <remarks>
         /// message 参数的内容应为人所理解。 此构造函数的调用方需要确保此字符串已针对当前系统区域性进行了本地化。作为
@@ -74,14 +87,44 @@ namespace Maydear.Exceptions
 
         /// <summary>
         /// 用序列化数据初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
         /// </summary>
         /// <remarks>
         /// 在反序列化过程中调用该构造函数来重建通过流传输的异常对象.
         /// </remarks>
         /// <param name="info">保存序列化对象<see cref="System.Runtime.Serialization.SerializationInfo"/>数据的对象。</param>
         /// <param name="context">有关源或目标的上下文信息。</param>
-        protected StatusCodeException(SerializationInfo info, StreamingContext context) 
+        protected StatusCodeException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
+        /// <summary>
+        ///  初始化<see cref="StatusCodeException"/>类的新实例。
+        ///  <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        ///  <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
+        /// </summary>
+        public StatusCodeException()
+            : this(DEFAULT_STATUS_CODE) { }
+
+        /// <summary>
+        /// 初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
+        /// </summary>
+        /// <param name="message"></param>
+        public StatusCodeException(string message)
+            : this(DEFAULT_STATUS_CODE, message) { }
+
+        /// <summary>
+        /// 初始化<see cref="StatusCodeException"/>类的新实例。
+        /// <para>**不建议直接new使用,给那些自愿被拖出去打死的懒人使用**</para>
+        /// <para>**正确的使用方式应该是继承该类自定“StatusCode”后使用，每一个StatusCode对应一种异常类型**</para>
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
+        public StatusCodeException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }
