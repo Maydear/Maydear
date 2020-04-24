@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Maydear.Extensions
+namespace System
 {
     /// <summary>
     /// 扩展方法
