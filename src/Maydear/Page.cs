@@ -32,7 +32,7 @@ namespace Maydear
         /// <summary>
         /// 当前页
         /// </summary>
-        public int PageIndex { get; set; } = Constants.DEFAULT_PAGE_INDEX;
+        public int PageIndex { get; set; } = Constants.DefaultPageIndex;
 
         /// <summary>
         /// 偏移量

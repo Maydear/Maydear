@@ -23,11 +23,11 @@ namespace Maydear
         /// <summary>
         /// 默认数据分页
         /// </summary>
-        public const int DEFAULT_PAGE_SIZE = 50;
+        public const int DefaultPageSize = 50;
 
         /// <summary>
         /// 默认页码
         /// </summary>
-        public const int DEFAULT_PAGE_INDEX = 1;
+        public const int DefaultPageIndex = 1;
     }
 }

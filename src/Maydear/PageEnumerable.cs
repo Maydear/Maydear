@@ -86,7 +86,7 @@ namespace Maydear
         /// <summary>
         /// 页宽
         /// </summary>
-        public int PageSize { get; set; } = Constants.DEFAULT_PAGE_SIZE;
+        public int PageSize { get; set; } = Constants.DefaultPageSize;
 
         /// <summary>
         /// 页码
@@ -110,10 +110,10 @@ namespace Maydear
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">每次返回的最大数量</param>
-        public PageEnumerable(IEnumerable<T> records, long recordCount, int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
+        public PageEnumerable(IEnumerable<T> records, long recordCount, int pageIndex, int pageSize)
         {
-            PageSize = pageSize;
             PageIndex = pageIndex;
+            PageSize = pageSize;
             RecordCount = recordCount;
             Records = records;
         }
@@ -121,7 +121,24 @@ namespace Maydear
         /// <summary>
         /// 构造函数
         /// </summary>
-        public PageEnumerable(int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE)
+        /// <param name="records">数据集合</param>
+        /// <param name="recordCount">总记录数</param>
+        public PageEnumerable(IEnumerable<T> records, long recordCount)
+            : this(records, recordCount, Constants.DefaultPageIndex, Constants.DefaultPageSize)
+        { }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public PageEnumerable(int pageIndex, int pageSize)
+            : this(default, 0, pageIndex, pageSize)
+        { }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public PageEnumerable()
+            : this(Constants.DefaultPageIndex, Constants.DefaultPageSize)
         { }
     }
 
@@ -139,24 +156,39 @@ namespace Maydear
         /// <summary>
         /// 构造一个分页列表实体
         /// </summary>
-        /// <param name="data">列表实体集合</param>
+        /// <param name="records">列表实体集合</param>
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页宽</param>
-        public PageList(IList<T> records, long recordCount, int pageIndex, int pageSize) : base(records, recordCount, pageIndex, pageSize)
+        public PageList(IList<T> records, long recordCount, int pageIndex, int pageSize)
+            : base(records, recordCount, pageIndex, pageSize)
         {
-            PageSize = pageSize;
-            PageIndex = pageIndex;
-            RecordCount = recordCount;
-            Records = records;
         }
+
+        /// <summary>
+        /// 构造一个分页列表实体
+        /// </summary>
+        /// <param name="records">列表实体集合</param>
+        /// <param name="recordCount">总记录数</param>
+        public PageList(IList<T> records, long recordCount) 
+            : base(records, recordCount)
+        { }
 
         /// <summary>
         /// 构造一个分页列表实体
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页宽</param>
-        public PageList(int pageIndex = Constants.DEFAULT_PAGE_INDEX, int pageSize = Constants.DEFAULT_PAGE_SIZE) : base(pageIndex, pageSize)
+        public PageList(int pageIndex, int pageSize) 
+            : base(pageIndex, pageSize)
+        {
+
+        }
+
+        /// <summary>
+        /// 构造一个分页列表实体
+        /// </summary>
+        public PageList() : base()
         { }
     }
 }

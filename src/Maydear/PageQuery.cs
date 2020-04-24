@@ -15,13 +15,13 @@ namespace Maydear
         public string Keyword { get; set; }
 
         /// <summary>
-        /// 排序字段
+        /// 排序降序序字段
         /// </summary>
-        public string OrderBy { get; set; }
+        public string OrderByDesc { get; set; }
 
         /// <summary>
-        /// 是否降序
+        /// 排序升序参数
         /// </summary>
-        public bool IsDesc { get; set; }
+        public string OrderBy{ get; set; }
     }
 }
