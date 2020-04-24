@@ -594,7 +594,7 @@ namespace System.Security.Cryptography
         /// <param name="data">待加密的明文</param>
         /// <param name="password">加密公钥</param>
         /// <param name="iv">向量</param>
-        /// <param name="mode">加密模式</param>
+        /// <param name="mode">加密模式(CFB/OFB将在netstandard2.1后不可用)</param>
         /// <param name="padding">排列模式</param>
         /// <returns>返回一个二进制数组的密文</returns>
         public static byte[] AesEncrypt(this string data, byte[] password, byte[] iv, CipherMode mode, PaddingMode padding)
@@ -603,7 +603,6 @@ namespace System.Security.Cryptography
             {
                 return null;
             }
-
             if (iv.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(iv));

@@ -29,7 +29,6 @@ namespace Maydear.Infrastructure
         /// </summary>
         public string Mobile { get; set; }
 
-
         /// <summary>
         /// 所在省份省名称称谓 如:广东省,如果是 直辖市, 请直接传北京、上海等。
         /// </summary>

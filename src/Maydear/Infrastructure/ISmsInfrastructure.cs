@@ -109,7 +109,7 @@ namespace Maydear.Infrastructure
         /// <param name="sms">短信</param>
         /// <param name="canceltoken">取消令牌</param>
         /// <returns></returns>
-        Task<bool> SendAsync(Sms sms, CancellationToken canceltoken = default(CancellationToken));
+        Task<bool> SendAsync(Sms sms, CancellationToken canceltoken = default);
 
         /// <summary>
         /// 异步发送短信
@@ -117,7 +117,7 @@ namespace Maydear.Infrastructure
         /// <param name="smsFunc">短信委托</param>
         /// <param name="canceltoken">取消令牌</param>
         /// <returns></returns>
-        Task<bool> SendAsync(Func<Sms> smsFunc, CancellationToken canceltoken = default(CancellationToken));
+        Task<bool> SendAsync(Func<Sms> smsFunc, CancellationToken canceltoken = default);
 
     }
 }

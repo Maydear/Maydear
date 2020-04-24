@@ -1,11 +1,10 @@
 using Maydear.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace Maydear.Extensions
+namespace System.Security.Cryptography
 {
     /// <summary>
     /// 
@@ -16,7 +15,7 @@ namespace Maydear.Extensions
         /// RSA签名
         /// </summary>
         /// <param name="content">数据</param>
-        /// <param name="privateKey">RSA密钥</param>
+        /// <param name="privateKeyPath">RSA密钥</param>
         /// <returns></returns>
         public static string BuildRsaSHA1SignatureToHex(this string content, string privateKeyPath, string password)
         {
@@ -49,7 +48,7 @@ namespace Maydear.Extensions
 
             if (!System.IO.File.Exists(privateKeyPath))
             {
-                throw new Exceptions.ArgumentNullException(privateKeyPath);
+                throw new Maydear.Exceptions.ArgumentNullException(privateKeyPath);
             }
 
             X509Certificate2 x509Certificate = new X509Certificate2(privateKeyPath, password);
