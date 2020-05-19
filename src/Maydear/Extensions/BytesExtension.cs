@@ -54,12 +54,7 @@ namespace System
         {
             if (inArray == null || inArray.Length == 0)
                 return string.Empty;
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in inArray)
-            {
-                sb.Append(string.Format("{0:x2}", item));
-            }
-            return sb.ToString();
+            return BitConverter.ToString(inArray).Replace("-", "").ToLower();
         }
 
         /// <summary>
