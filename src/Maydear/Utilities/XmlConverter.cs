@@ -6,7 +6,10 @@ using System.Xml.Serialization;
 
 namespace Maydear.Utilities
 {
-    public static class XmlSerializerHelper
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class XmlConverter
     {
         /// <summary>
         /// Xml字符串转实体对象
@@ -34,7 +37,7 @@ namespace Maydear.Utilities
         /// 实体对象转Xml字符串
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         public static string Serialize<T>(T entity) where T : class
         {

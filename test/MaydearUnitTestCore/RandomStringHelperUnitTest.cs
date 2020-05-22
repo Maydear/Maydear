@@ -28,5 +28,12 @@ namespace MaydearUnitTestCore
 
             System.Console.WriteLine(RandomStringHelper.NextLettersString(4));
         }
+
+        [TestMethod]
+        public void NextNickname()
+        {
+
+            System.Console.WriteLine(RandomStringHelper.NextNickname());
+        }
     }
 }
