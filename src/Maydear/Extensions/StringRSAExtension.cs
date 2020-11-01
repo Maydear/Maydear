@@ -15,7 +15,8 @@ namespace System.Security.Cryptography
         /// RSA签名
         /// </summary>
         /// <param name="content">数据</param>
-        /// <param name="privateKeyPath">RSA密钥</param>
+        /// <param name="privateKeyPath">RSA私钥路径</param>
+        /// <param name="password">RSA私钥密码</param>
         /// <returns></returns>
         public static string BuildRsaSHA1SignatureToHex(this string content, string privateKeyPath, string password)
         {
@@ -26,7 +27,8 @@ namespace System.Security.Cryptography
         /// RSA签名
         /// </summary>
         /// <param name="content">数据</param>
-        /// <param name="privateKey">RSA密钥</param>
+        /// <param name="privateKeyPath">RSA私钥路径</param>
+        /// <param name="password">RSA私钥密码</param>
         /// <returns></returns>
         public static string BuildRsaSHA1SignatureToBase64(this string content, string privateKeyPath, string password)
         {
@@ -37,7 +39,8 @@ namespace System.Security.Cryptography
         /// 生成RSA签名
         /// </summary>
         /// <param name="content">数据</param>
-        /// <param name="privateKeyRawData">RSA密钥二进制数据</param>
+        /// <param name="privateKeyPath">RSA私钥路径</param>
+        /// <param name="password">RSA私钥密码</param>
         /// <returns></returns>
         public static byte[] BuildRsaSHA1Signature(this string content, string privateKeyPath, string password)
         {

@@ -31,6 +31,9 @@ namespace Maydear.Exceptions
         /// </summary>
         private const int FILE_NOT_EXISTS_STATUS_CODE = 3011;
 
+        /// <summary>
+        /// (3011)文件不存在引发异常。
+        /// </summary>
         public FileNotExistsException() 
             : base(FILE_NOT_EXISTS_STATUS_CODE, $"指定的文件不存在。")
         { }

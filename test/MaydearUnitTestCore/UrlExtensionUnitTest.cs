@@ -31,8 +31,6 @@ namespace MaydearUnitTest
                 PageSize = 100
             };
 
-            string s = "ssss";
-
             Assert.AreEqual(page.Offset, 0);
         }
     }

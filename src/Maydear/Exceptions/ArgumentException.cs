@@ -56,8 +56,8 @@ namespace Maydear.Exceptions
         /// <remarks>
         /// 在反序列化过程中调用该构造函数来重建通过流传输的异常对象.
         /// </remarks>
-        /// <param name="info">保存序列化对象<see cref="System.Runtime.Serialization.SerializationInfo"/>数据的对象。</param>
-        /// <param name="context">有关源或目标的上下文信息。</param>
+        /// <param name="serializationInfo">保存序列化对象<see cref="System.Runtime.Serialization.SerializationInfo"/>数据的对象。</param>
+        /// <param name="streamingContext">有关源或目标的上下文信息。</param>
         protected ArgumentException(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
             : base(serializationInfo, streamingContext) { }
     }
