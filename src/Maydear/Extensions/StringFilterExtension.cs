@@ -73,7 +73,7 @@ namespace System
         /// <returns>返回一个bool类型，字符串满足标准中国手机号码格式则返回true,反之则为false</returns>
         public static bool IsChinaMobilePhone(this string data)
         {
-            Regex re = new Regex(@"((^13[0-9])|(^14[0-8])|(^15([0-3]|[5-9]))|(^166)|(^17[0-9])|(^18[0-9])|(^19[8-9]))\d{8}$");
+            Regex re = new Regex(@"((^13[0-9])|(^14[0-8])|(^15([0-3]|[5-9]))|(^166)|(^17[0-9])|(^18[0-9])|(^191)|(^19[8-9]))\d{8}$");
 
             return re.IsMatch(data);
         }
