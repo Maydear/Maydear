@@ -17,7 +17,7 @@
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Title>Maydear常用扩展方法及公共接口定义</Title>
         <Description>常用扩展方法，涵盖加解密、字符串操作、Email、分页包装实体、公共接口定义等</Description>
-        <Version>3.1.209</Version>
+        <Version>3.1.210</Version>
         <AssemblyName>Maydear</AssemblyName>
         <NeutralLanguage>zh-CN</NeutralLanguage>
         <Language>zh-CN</Language>
@@ -35,6 +35,11 @@
         <DocumentationFile>bin\Release\Maydear.xml</DocumentationFile>
         <OutputPath>..\..\publish\</OutputPath>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Annotations\**" />
+      <EmbeddedResource Remove="Annotations\**" />
+      <None Remove="Annotations\**" />
+    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\..\LICENSE-2.0.txt" Pack="true" Visible="false" PackagePath="" />
@@ -46,8 +51,5 @@
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)'=='net46'">
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Annotations\" />
     </ItemGroup>
 </Project>
