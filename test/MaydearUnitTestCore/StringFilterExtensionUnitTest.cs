@@ -1,15 +1,17 @@
 using Maydear.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 namespace MaydearUnitTestCore
 {
     [TestClass]
     public class StringFilterExtensionUnitTest
     {
         [TestMethod]
-        public void NextLettersString()
+        public void IsChinaMobilePhone()
         {
-
-            System.Console.WriteLine("19120635417".IsChinaMobilePhone());
+            var result = "19120635417".IsChinaMobilePhone();
+            System.Console.WriteLine(result);
+            Assert.IsTrue(result);
         }
 
     }
