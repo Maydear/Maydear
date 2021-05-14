@@ -35,11 +35,6 @@
         <DocumentationFile>bin\Release\Maydear.xml</DocumentationFile>
         <OutputPath>..\..\publish\</OutputPath>
     </PropertyGroup>
-    <ItemGroup>
-      <Compile Remove="Annotations\**" />
-      <EmbeddedResource Remove="Annotations\**" />
-      <None Remove="Annotations\**" />
-    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\..\LICENSE-2.0.txt" Pack="true" Visible="false" PackagePath="" />
