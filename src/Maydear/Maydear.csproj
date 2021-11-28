@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461;net6.0;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;net461;netcoreapp3.1;net6.0;</TargetFrameworks>
         <PackageProjectUrl>https://github.com/Maydear/Maydear</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Maydear/Maydear.git</RepositoryUrl>
         <PackageIconUrl>http://oss.lvcoco.com/static/logo.png</PackageIconUrl>
@@ -25,14 +25,9 @@
         <LangVersion>7.1</LangVersion>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|netstandard2.0'">
-        <DocumentationFile>bin\Release\netstandard2.0\Maydear.xml</DocumentationFile>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net6.0'">
-        <DocumentationFile>bin\Release\net6.0\Maydear.xml</DocumentationFile>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net461'">
-        <DocumentationFile>bin\Release\net461\Maydear.xml</DocumentationFile>
+
+    <PropertyGroup>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Maydear.xml</DocumentationFile>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)'=='Release'">
         <DocumentationFile>bin\Release\Maydear.xml</DocumentationFile>
@@ -45,9 +40,6 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)'=='net461'">
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     </ItemGroup>
 </Project>
