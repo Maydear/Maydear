@@ -149,6 +149,30 @@ namespace System
         }
 
         /// <summary>
+        /// 是否为IPv4
+        /// </summary>
+        /// <param name="data">待验证的字符串</param>
+        /// <returns>返回一个bool类型，字符串满足标准IPv4格式则返回true,反之则为false</returns>
+        public static bool IsIPv4(this string data)
+        {
+            Regex re = new Regex(@"^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$");
+            ;
+            return re.IsMatch(data);
+        }
+
+        /// <summary>
+        /// 是否为域名
+        /// </summary>
+        /// <param name="data">待验证的字符串</param>
+        /// <returns>返回一个bool类型，字符串满足标准域名格式则返回true,反之则为false</returns>
+        public static bool IsDomainName(this string data)
+        {
+            Regex re = new Regex(@"[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?");
+
+            return re.IsMatch(data);
+        }
+
+        /// <summary>
         /// 是否合法中国身份证号（18位）
         /// </summary>
         /// <param name="data">待验证的中国身份证号</param>
